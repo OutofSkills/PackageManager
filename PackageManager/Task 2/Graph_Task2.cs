@@ -6,15 +6,15 @@ namespace PackageManager
 {
 	// This class represents a directed graph
 	// using adjacency list representation
-	class Graph
+	public class Graph
 	{
 		//A list of nodes's values
-		public List<string> _list;
+		public List<Node> _list;
 		/*Constructor*/
 		public Graph()
-        {
-			_list = new List<string>();
-        }
+		{
+			_list = new List<Node>();
+		}
 		/*Graph node*/
 		public class Node
 		{
@@ -29,6 +29,34 @@ namespace PackageManager
 				neighbors = new List<Node>();
 			}
 		}
+
+		public List<List<string>> DisplayNodes(List<Graph.Node> sortedList)
+		{
+			List<List<string>> list = new List<List<string>>();
+			foreach (var node in sortedList)
+			{
+				List<string> NeighborList = new List<string>();
+				GetNeighbor(node, NeighborList);
+				NeighborList.Sort();
+				list.Add(NeighborList);
+			}
+			return list;
+		}
+		public void GetNeighbor(Graph.Node node, List<string> NeighborList)
+		{
+			foreach (var neighbor in node.neighbors)
+			{
+				if (!NeighborList.Exists(n => n == neighbor.val))
+					NeighborList.Add(neighbor.val);
+				foreach (var _neighbor in neighbor.neighbors)
+				{
+					if (!NeighborList.Exists(n => n == _neighbor.val))
+						NeighborList.Add(_neighbor.val);
+					GetNeighbor(_neighbor, NeighborList);
+				}
+			}
+		}
+
 		/*simple depth first search*/
 		public void Dfs(List<Node> nodes)
 		{
@@ -53,7 +81,7 @@ namespace PackageManager
 				}
 			}
 			u.end = getUnixTimeStamp();
-			_list.Add(u.val);
+			_list.Add(u);
 		}
 
 		/*Description here: https://medium.com/@kumarrocky436/dfs-time-stamp-on-nodes-da76a51a50cb */

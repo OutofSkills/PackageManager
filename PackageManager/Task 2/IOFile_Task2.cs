@@ -14,7 +14,7 @@ namespace PackageManager
             try
             {
                 //Pass the file path and file name to the StreamReader constructor
-                StreamReader sr = new StreamReader("C:\\Users\\kojoc\\source\\repos\\PackageManager\\PackageManager\\Data\\deps.in");
+                StreamReader sr = new StreamReader("C:\\Users\\kojoc\\source\\repos\\PackageManager\\PackageManager\\Task 2\\Data\\deps.in");
                 //read first line
                 line = sr.ReadLine();
                 //Continue to read until you reach end of file
@@ -36,17 +36,22 @@ namespace PackageManager
             return list;
         }
 
-        public void Write(List<string> list)
+        public void Write(List<List<string>> list, List<Graph.Node> sortedList)
         {
             try
             {
                 //Open the File
-                StreamWriter sw = new StreamWriter("C:\\Users\\kojoc\\source\\repos\\PackageManager\\PackageManager\\Data\\task1.out", true, Encoding.ASCII);
+                StreamWriter sw = new StreamWriter("C:\\Users\\kojoc\\source\\repos\\PackageManager\\PackageManager\\Task 2\\Data\\task2.out", true, Encoding.ASCII);
 
                 //Write out the numbers 1 to 10 on the same line.
-                foreach (var item in list)
+                int j = 0;
+                foreach (var node in list)
                 {
-                    sw.WriteLine(item);
+                    sw.Write(sortedList[j].val + " ");
+                    foreach (var neighbor in node)
+                        sw.Write(neighbor + " ");
+                    sw.WriteLine();
+                    j++;
                 }
 
                 //close the file
