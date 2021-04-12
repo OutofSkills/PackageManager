@@ -8,13 +8,6 @@ namespace PackageManager
 	// using adjacency list representation
 	public class Graph
 	{
-		//A list of nodes's values
-		public List<Node> _list;
-		/*Constructor*/
-		public Graph()
-		{
-			_list = new List<Node>();
-		}
 		/*Graph node*/
 		public class Node
 		{
@@ -30,19 +23,19 @@ namespace PackageManager
 			}
 		}
 
-		public List<List<string>> DisplayNodes(List<Graph.Node> sortedList)
+		public List<List<string>> TraverseGraf(List<Graph.Node> sortedList)
 		{
 			List<List<string>> list = new List<List<string>>();
 			foreach (var node in sortedList)
 			{
 				List<string> NeighborList = new List<string>();
-				GetNeighbor(node, NeighborList);
+				GetNeighbors(node, NeighborList);
 				NeighborList.Sort();
 				list.Add(NeighborList);
 			}
 			return list;
 		}
-		public void GetNeighbor(Graph.Node node, List<string> NeighborList)
+		public void GetNeighbors(Graph.Node node, List<string> NeighborList)
 		{
 			foreach (var neighbor in node.neighbors)
 			{
@@ -52,7 +45,7 @@ namespace PackageManager
 				{
 					if (!NeighborList.Exists(n => n == _neighbor.val))
 						NeighborList.Add(_neighbor.val);
-					GetNeighbor(_neighbor, NeighborList);
+					GetNeighbors(_neighbor, NeighborList);
 				}
 			}
 		}
@@ -81,7 +74,6 @@ namespace PackageManager
 				}
 			}
 			u.end = getUnixTimeStamp();
-			_list.Add(u);
 		}
 
 		/*Description here: https://medium.com/@kumarrocky436/dfs-time-stamp-on-nodes-da76a51a50cb */

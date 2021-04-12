@@ -121,13 +121,10 @@ namespace PackageManager
 				}
 			}
 
-			/*Traverse the graph and store the node's values to a list*/
-			graph.Dfs(nodes);
-
 			/*sort the nodes*/
-			var SortedList = graph._list.OrderBy(n => n.val).ToList();
+			var SortedList = nodes.OrderBy(n => n.val).ToList();
 			/*write the data to the output file*/
-			file.Write(graph.DisplayNodes(SortedList), SortedList);
+			file.Write(graph.TraverseGraf(SortedList), SortedList);
 			
 		}
 	}
